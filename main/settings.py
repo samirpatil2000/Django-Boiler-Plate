@@ -27,12 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ekyd-%5d)z!q5n0%k)_^gw9fe$4&z60&cyb0*1n_h57!a2%$ql'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ekyd-%5d)z!q5n0%k)_^gw9fe$4&z60&cyb0*1n_h57!a2%$ql')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 
 # Application definition
@@ -91,7 +91,9 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if os.environ.get('DB_ENGINE') == "postgresql":
+DB_ENGINE = os.environ.get('DB_ENGINE', 'sqlite3').lower()
+
+if DB_ENGINE == "postgresql":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
@@ -103,6 +105,7 @@ if os.environ.get('DB_ENGINE') == "postgresql":
         }
     }
 else:
+    # Default to SQLite3 if an unsupported engine is specified
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
