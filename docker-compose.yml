@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   django:
-    container_name: finora-backend
+    container_name: backend
     build: .
-    image: finora-backend
+    image: backend
     ports:
       - "8000:8000"
     environment:

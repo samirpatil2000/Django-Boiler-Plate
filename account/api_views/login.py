@@ -9,7 +9,7 @@ class LoginAPIView(TokenObtainPairView):
         try:
             token = super(TokenObtainPairView, self).post(request, *args, **kwargs)
             data = {
-                "token": token.data["access"]
+                **token.data
             }
             result = {'status': status.HTTP_200_OK, 'message': "successfully login", 'data': data}
         except Exception as e:

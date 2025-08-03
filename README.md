@@ -1,4 +1,4 @@
-# Django-Boiler-Plate
+# django-boiler-plate
 
 A comprehensive Django REST API boilerplate project designed to kickstart your web development with Django and Django REST Framework. This template provides a clean, modular, and scalable structure for building robust Django applications with JWT-based authentication and RESTful APIs.
 
@@ -24,10 +24,61 @@ A comprehensive Django REST API boilerplate project designed to kickstart your w
 
 ## 🛠️ Installation & Setup
 
+You can run this application either using traditional Python setup or Docker. Choose the method that best suits your development environment.
+
+## 🐳 Docker Setup (Recommended)
+
+### Prerequisites for Docker
+- Docker
+- Docker Compose
+
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/samirpatil2000/Django-Boiler-Plate.git
-cd Django-Boiler-Plate
+git clone https://github.com/samirpatil2000/django-boiler-plate.git
+cd django-boiler-plate
+```
+
+### 2. Environment Configuration
+Create a `.env` file based on `.env.example`:
+```bash
+cp .env.example .env
+```
+
+### 3. Build and Run with Docker Compose
+```bash
+docker-compose up --build
+```
+
+### 4. Database Setup (Docker)
+Run migrations inside the Docker container:
+```bash
+docker exec -it backend python manage.py makemigrations
+docker exec -it backend python manage.py migrate
+```
+
+### 5. Create Superuser (Docker)
+```bash
+docker exec -it backend python manage.py createsuperuser
+```
+
+### 6. Access the Application
+- **API Base URL**: [http://127.0.0.1:8000/account/](http://127.0.0.1:8000/account/)
+- **Admin Panel**: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
+---
+
+## 🐍 Traditional Python Setup
+
+### Prerequisites
+- Python 3.8+
+- pip
+- virtualenv (recommended)
+- SQLite (default) or PostgreSQL/MySQL for production
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/samirpatil2000/django-boiler-plate.git
+cd django-boiler-plate
 ```
 
 ### 2. Create Virtual Environment
@@ -279,40 +330,6 @@ Key settings for the API:
 ---
 
 ## 🚀 Usage Examples
-
-### Python Requests Example
-```python
-import requests
-
-# Base URL
-BASE_URL = "http://127.0.0.1:8000/account"
-
-# Register a new user
-register_data = {
-    "email": "newuser@example.com",
-    "password": "securepass123",
-    "password2": "securepass123",
-    "first_name": "Jane",
-    "last_name": "Smith"
-}
-
-response = requests.post(f"{BASE_URL}/register", json=register_data)
-print(response.json())
-
-# Login
-login_data = {
-    "email": "newuser@example.com",
-    "password": "securepass123"
-}
-
-response = requests.post(f"{BASE_URL}/login", json=login_data)
-token = response.json()["data"]["token"]
-
-# Get user profile
-headers = {"Authorization": f"Bearer {token}"}
-response = requests.get(f"{BASE_URL}/register", headers=headers)
-print(response.json())
-```
 
 ### cURL Examples
 ```bash

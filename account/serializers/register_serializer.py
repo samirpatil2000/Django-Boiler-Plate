@@ -8,7 +8,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['first_name', 'last_name', 'password', 'password2']
+        fields = ['email', 'password', 'password2']
         extra_kwargs = {
             'password' : {'write_only': True},
         }
@@ -32,15 +32,3 @@ class AccountSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.save()
         return account
-
-class UpdateAccountSerializer(serializers.ModelSerializer):
-    email = serializers.CharField(required=False, write_only=True)
-    class Meta:
-        model = Account
-        fields = ['email', 'first_name', 'last_name']
-
-
-class ChangePasswordSerializer(serializers.Serializer):
-
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
