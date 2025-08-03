@@ -45,7 +45,9 @@ ENV/
 # Database
 db.sqlite3
 
-# Media and static files in development
+# Media files in development
 media/
-static/
-collectstatic/
+
+# Don't ignore static files for Docker
+# static/
+# collectstatic/
