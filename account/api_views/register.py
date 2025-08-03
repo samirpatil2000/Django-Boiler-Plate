@@ -67,8 +67,8 @@ class RegistrationAPIView(APIView):
                 result = {'status': status.HTTP_403_FORBIDDEN, "message": "Not Authenticated!", "data": {}}
                 return Response(result)
             account = self.get_object(request.user)
-            serializers = AccountSerializer(account)
-            result = {'status': status.HTTP_200_OK, "message": "successfully register", "data": serializers.data}
+            account_serializers = AccountSerializer(account)
+            result = {'status': status.HTTP_200_OK, "message": "successfully register", "data": account_serializers.data}
         except Exception as e:
             result = {'status': status.HTTP_400_BAD_REQUEST, "message": str(e), "data":{}}
         return Response(result)
